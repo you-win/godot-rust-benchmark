@@ -2,4 +2,6 @@
 
 [resource]
 entry/OSX.64 = "res://native-lib/libnative_lib.dylib"
+entry/Windows.64 = "res://native-lib/native_lib.dll"
 dependency/OSX.64 = [  ]
+dependency/Windows.64 = [  ]

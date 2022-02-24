@@ -4,20 +4,34 @@ gdscript vs. visual scripting vs. gdnative (rust)
 
 Task: 6k DrawLine using `sin`/`cos` in a circle
 
+Modified to also use [GDNative Runtime Loader](https://github.com/you-win/gdnative-runtime-loader) which allows for native libraries to be loaded at runtime (aka libaries can be added without needing to reexport the Godot project).
+
+## Building
+1. Run `cargo build --release` in the `native-lib` folder
+2. Copy the resulting binary to `godot/native-lib/` and register the file in `godot/native-lib/libnative.tres`
+3. For runtime loading, copy the resulting binary to `godot/plugins/native-lib/` and register the file in `godot/native-lib/config.ini`. See [the GDNative Runtime Loader readme](https://github.com/you-win/gdnative-runtime-loader#example) for an example.
+
 ## Results
+
+### Computer specs
+* CPU: AMD Ryzen 7 5800X
+* GPU: NVIDIA GeForce RTX 3080
+* RAM: 32gb of something i forgot
+
+Results are calculated by just looking at the logs and guessing at what the average is.
 
 | type | usecs | slowdown | 
 |---|---|---|
-| gdnative (rust) | ~1000 usec | - |
-| gdscript | ~5000 usec | 5x |
-| visual script | ~7000 usec | 7x |
-
+| gdnative (rust) | ~400 usec | - |
+| gdnative [runtime loaded](https://github.com/you-win/gdnative-runtime-loader) (rust) | ~400 usec | - |
+| gdscript | ~3300 usec | 8x |
+| visual script | ~5100 usec | 12x |
 
 ## Code
 
 ### GDScript
 
-```
+```gdscript
 var startTime = OS.get_ticks_usec()
 var start = Vector2(200,200)
 
